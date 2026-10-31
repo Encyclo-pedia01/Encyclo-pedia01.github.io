@@ -6,6 +6,13 @@
   <title>Anderson-Gameli Josiah Joseph | IT Student & Developer</title>
   <meta name="description" content="Personal portfolio of Anderson-Gameli Josiah Joseph, a BSc IT student and backend/frontend developer based in Accra, Ghana." />
   <meta name="theme-color" content="#0B1F3A" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a1120" />
+
+  <!-- Inline SVG favicon: no extra file, no 404 on GitHub Pages. -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230B1F3A'/><text x='50' y='69' font-family='system-ui,sans-serif' font-size='47' font-weight='800' fill='%2300C2D1' text-anchor='middle'>A</text></svg>" />
+
+  <!-- Uncomment and set once you know your live URL (helps link previews) -->
+  <!-- <meta property="og:url" content="https://USERNAME.github.io/" /> -->
 
   <!-- Open Graph -->
   <meta property="og:title" content="Anderson-Gameli Josiah Joseph | Portfolio" />
@@ -14,6 +21,18 @@
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    /* Only used to avoid a pointless observer when motion is disabled. */
+    (function () {
+      try {
+        if ('IntersectionObserver' in window &&
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('anim');
+        }
+      } catch (e) { /* no-op */ }
+    })();
+  </script>
 
   <style>
     /* ─────────────────────────────────────────────────────────────
@@ -89,6 +108,7 @@
     }
 
     .navbar.scrolled {
+      background: rgba(248, 250, 252, 0.9);            /* fallback */
       background: color-mix(in srgb, var(--surface) 85%, transparent);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -196,6 +216,7 @@
     .hero-inner { position: relative; z-index: 2; max-width: var(--max-w); margin: 0 auto; }
 
     .hero-img-container {
+      position: relative;
       width: 130px; height: 130px;
       margin: 0 auto 24px;
       border-radius: 50%;
@@ -207,8 +228,12 @@
       animation: floatIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    .hero-img-container i { font-size: 4rem; color: rgba(255,255,255,0.25); }
-    .hero-img-container img { width: 100%; height: 100%; object-fit: cover; }
+    #heroFallback { display: none; font-size: 4rem; color: rgba(255,255,255,0.25); }
+    .hero-img-container img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
 
     .hero h1 {
       font-size: clamp(1.8rem, 5vw, 2.6rem);
@@ -347,13 +372,16 @@
       margin-bottom: 28px;
     }
 
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    /* SCROLL REVEAL — animation only, never a visibility gate.
+       Sections are fully visible by default; when they enter the viewport the
+       observer adds .visible, which plays a short fade-up. A no-JS visitor, a
+       print job, a crawler or a link-preview bot therefore always sees content. */
+    .reveal { opacity: 1; transform: none; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.visible { animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
     /* ABOUT */
     .about-text {
@@ -541,9 +569,11 @@
     .project-details {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease;
+      visibility: hidden;
+      transition: max-height 0.4s ease, visibility 0.4s;
     }
-    .project-details.open { max-height: 400px; }
+    /* 1200px, not 400px — the 5-bullet list was being clipped mid-sentence */
+    .project-details.open { max-height: 1200px; visibility: visible; }
     .project-details-inner {
       padding-top: 14px;
       margin-top: 14px;
@@ -712,7 +742,7 @@
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
       }
-      .reveal { opacity: 1; transform: none; }
+      .reveal, .reveal.visible { opacity: 1; transform: none; animation: none !important; }
       .cursor-glow { display: none; }
     }
   </style>
@@ -741,8 +771,12 @@
   <header class="hero" id="top">
     <div class="hero-inner">
       <div class="hero-img-container">
-        <!-- Replace the <i> with: <img src="me.jpg" alt="Anderson-Gameli Josiah Joseph"> -->
-        <img src="me.png" alt="Anderson-Gameli Josiah Joseph"></i>
+        <!-- Profile photo: drop a square image named me.jpg next to index.html.
+             If it is missing, the icon fallback shows — never a broken-image box. -->
+        <i class="fas fa-user-astronaut" id="heroFallback" aria-hidden="true"></i>
+        <img src="me.jpg" alt="Portrait of Anderson-Gameli Josiah Joseph"
+             width="130" height="130" loading="eager" decoding="async"
+             onerror="this.remove();document.getElementById('heroFallback').style.display='grid';" />
       </div>
 
       <h1>Anderson-Gameli Josiah Joseph</h1>
@@ -1003,7 +1037,8 @@
       }
 
       // Determine initial theme
-      const saved = localStorage.getItem(STORAGE_KEY);
+      let saved = null;
+      try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) { /* private mode */ }
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       applyTheme(saved || (prefersDark ? 'dark' : 'light'));
 
@@ -1011,7 +1046,7 @@
         const current = root.getAttribute('data-theme');
         const next = current === 'dark' ? 'light' : 'dark';
         applyTheme(next);
-        localStorage.setItem(STORAGE_KEY, next);
+        try { localStorage.setItem(STORAGE_KEY, next); } catch (e) { /* full or blocked */ }
       });
     })();
 
@@ -1250,5 +1285,6 @@
     })();
   </script>
 
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
