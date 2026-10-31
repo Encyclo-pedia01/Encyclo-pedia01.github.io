@@ -8,22 +8,19 @@
   <meta name="theme-color" content="#0B1F3A" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a1120" />
 
-  <!-- Inline SVG favicon: no extra file, no 404 on GitHub Pages. -->
+ 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230B1F3A'/><text x='50' y='69' font-family='system-ui,sans-serif' font-size='47' font-weight='800' fill='%2300C2D1' text-anchor='middle'>A</text></svg>" />
 
-  <!-- Uncomment and set once you know your live URL (helps link previews) -->
-  <!-- <meta property="og:url" content="https://USERNAME.github.io/" /> -->
 
-  <!-- Open Graph -->
   <meta property="og:title" content="Anderson-Gameli Josiah Joseph | Portfolio" />
   <meta property="og:description" content="IT student & developer building practical web tools for students in Ghana." />
   <meta property="og:type" content="website" />
 
-  <!-- Font Awesome -->
+ 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <script>
-    /* Only used to avoid a pointless observer when motion is disabled. */
+    
     (function () {
       try {
         if ('IntersectionObserver' in window &&
@@ -35,9 +32,7 @@
   </script>
 
   <style>
-    /* ─────────────────────────────────────────────────────────────
-       DESIGN SYSTEM & THEMING
-       ───────────────────────────────────────────────────────────── */
+    
     :root {
       --navy: #0B1F3A;
       --cyan: #00C2D1;
@@ -751,7 +746,7 @@
 
   <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
-  <!-- NAVBAR -->
+  
   <nav class="navbar" id="navbar" aria-label="Primary navigation">
     <a href="#top" class="nav-brand">A-G<span>.</span>J<span>.</span>J</a>
     <ul class="nav-links">
@@ -767,20 +762,19 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
+  -- HERO -->
   <header class="hero" id="top">
     <div class="hero-inner">
       <div class="hero-img-container">
-        <!-- Profile photo: drop a square image named me.jpg next to index.html.
-             If it is missing, the icon fallback shows — never a broken-image box. -->
+      
         <i class="fas fa-user-astronaut" id="heroFallback" aria-hidden="true"></i>
-        <img src="me.jpg" alt="Portrait of Anderson-Gameli Josiah Joseph"
+        <img src="me.png" alt="Portrait of Anderson-Gameli Josiah Joseph"
              width="130" height="130" loading="eager" decoding="async"
              onerror="this.remove();document.getElementById('heroFallback').style.display='grid';" />
       </div>
 
       <h1>Anderson-Gameli Josiah Joseph</h1>
-      <h2>IT Student &amp; Backend Developer</h2>
+      <h2>IT Student &amp; Frontend/Backend Developer</h2>
 
       <p>
         Building practical, mobile-first web tools that solve real problems for students in Ghana.
@@ -807,7 +801,7 @@
 
   <main class="container">
 
-    <!-- ABOUT -->
+    -- ABOUT -->
     <section id="about" class="reveal">
       <h2 class="section-title">About</h2>
       <p class="about-text">
@@ -821,7 +815,7 @@
       </p>
     </section>
 
-    <!-- SKILLS -->
+  
     <section id="skills" class="reveal">
       <h2 class="section-title">Tech Stack</h2>
       <p class="section-sub">Tools and technologies I work with</p>
@@ -839,14 +833,14 @@
       </div>
     </section>
 
-    <!-- PROJECTS -->
+   
     <section id="projects" class="reveal">
       <h2 class="section-title">Featured Projects</h2>
       <p class="section-sub">A few things I've built or am building</p>
 
       <div class="projects-grid">
 
-        <!-- Project 1 -->
+        
         <article class="project-card">
           <div class="project-inner">
             <div class="project-head">
@@ -884,7 +878,7 @@
           </div>
         </article>
 
-        <!-- Project 2 -->
+      
         <article class="project-card">
           <div class="project-inner">
             <div class="project-head">
@@ -921,7 +915,7 @@
           </div>
         </article>
 
-        <!-- Project 3 -->
+     
         <article class="project-card">
           <div class="project-inner">
             <div class="project-head">
@@ -960,19 +954,13 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
+   
     <section id="contact" class="reveal">
       <h2 class="section-title">Get In Touch</h2>
       <p class="section-sub">Have a project, question, or just want to say hi? Drop me a message.</p>
 
       <div class="contact-card">
-        <!--
-          NOTE: This form is front-end only for the demo.
-          To make it actually send messages on GitHub Pages (static hosting),
-          replace action with a Formspree endpoint, e.g.:
-            action="https://formspree.io/f/YOUR_ID"
-          or use a mailto: fallback (set below in JS).
-        -->
+      
         <form id="contactForm" novalidate>
           <div class="form-grid">
             <div class="form-group">
@@ -1016,15 +1004,13 @@
     </div>
   </footer>
 
-  <!-- BACK TO TOP -->
+  
   <button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">
     <i class="fas fa-arrow-up" aria-hidden="true"></i>
   </button>
 
   <script>
-    /* ─────────────────────────────────────────────────────────────
-       1. THEME TOGGLE (persists + respects OS preference)
-       ───────────────────────────────────────────────────────────── */
+   
     (function () {
       const root = document.documentElement;
       const toggle = document.getElementById('themeToggle');
